@@ -1,0 +1,16 @@
+export const StandardCategories = new Map([
+  ["food", { name: "Food", icon: "🍔", color: "#FF6347" }],
+  ["transportation", { name: "Transport", icon: "🚗", color: "#4682B4" }],
+  ["gas", { name: "Gas", icon: "⛽️", color: "#000000" }],
+  ["entertainment", { name: "Entertainment", icon: "🎬", color: "#FFD700" }],
+  ["utilities", { name: "Utilities", icon: "💡", color: "#32CD32" }],
+  ["healthcare", { name: "Healthcare", icon: "🏥", color: "#FF4500" }],
+  ["education", { name: "Education", icon: "📚", color: "#8A2BE2" }],
+  ["shopping", { name: "Shopping", icon: "🛍️", color: "#FF69B4" }],
+  ["travel", { name: "Travel", icon: "✈️", color: "#00CED1" }],
+  ["groceries", { name: "Groceries", icon: "🛒", color: "#FF8C00" }],
+  ["housing", { name: "Housing", icon: "🏠", color: "#8B4513" }],
+  ["health", { name: "Health", icon: "💪", color: "#FF1493" }],
+  ["personal care", { name: "Personal Care", icon: "💇🏼‍♀️", color: "#FFB6C1" }],
+  ["electronics", { name: "Electronics", icon: "💻", color: "#1E90FF" }],
+]);
