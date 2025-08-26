@@ -17,7 +17,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log("Expenses updated:", expenses);
     setTodaysExpenses(filterByDate(expenses, new Date(), "day"));
   }, [expenses]);
 

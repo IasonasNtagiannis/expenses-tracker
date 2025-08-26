@@ -40,3 +40,31 @@ export const getMonths = () => {
   }
   return months;
 };
+
+export const getMonthsWithExpenses = (expenses: Expense[]) => {
+  // Get unique month-year combinations from expenses
+  const monthYearSet = new Set<string>();
+  
+  expenses.forEach(expense => {
+    const date = new Date(expense.date);
+    const monthYear = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}`;
+    monthYearSet.add(monthYear);
+  });
+  
+  // Convert to array and sort by date (newest first)
+  const months = Array.from(monthYearSet)
+    .map(monthYear => {
+      const [year, month] = monthYear.split("-");
+      const date = new Date(parseInt(year), parseInt(month) - 1);
+      return {
+        value: monthYear,
+        label: date.toLocaleString("default", { month: "long", year: "numeric" }),
+        date: date
+      };
+    })
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+  
+  return months;
+};

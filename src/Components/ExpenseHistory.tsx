@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { Expense } from "../types";
-import { filterByDate, getMonths } from "../utils";
+import { filterByDate, getMonthsWithExpenses } from "../utils";
 import Histogram from "./Histogram";
 
 interface ExpenseHistoryProps {
@@ -32,7 +32,7 @@ const ExpenseHistory: React.FC<ExpenseHistoryProps> = ({ expenses }) => {
     setFilteredExpenses(currentFilteredExpenses);
   }, [expenses, selectedDate, selectedMonth]);
 
-  const months = getMonths();
+  const months = getMonthsWithExpenses(expenses);
 
   return (
     <div className="expense-history-container p-4 bg-white">
@@ -58,22 +58,39 @@ const ExpenseHistory: React.FC<ExpenseHistoryProps> = ({ expenses }) => {
           }}
         >
           <option value="">Select Month</option>
-          {months.map((month) => (
-            <option key={month.value} value={month.value}>
-              {month.label}
-            </option>
-          ))}
+          {months.length > 0 ? (
+            months.map((month) => (
+              <option key={month.value} value={month.value}>
+                {month.label}
+              </option>
+            ))
+          ) : (
+            <option value="" disabled>No expenses logged yet</option>
+          )}
         </select>
       </div>
-      {filteredExpenses.length > 0 && (
+      {expenses.length === 0 ? (
+        <div className="text-center text-gray-600 p-6">
+          <p className="text-lg mb-2">No expenses logged yet</p>
+          <p className="text-sm">Start adding expenses to see your history here!</p>
+        </div>
+      ) : months.length === 0 ? (
+        <div className="text-center text-gray-600 p-6">
+          <p className="text-lg mb-2">No expenses found</p>
+          <p className="text-sm">Try selecting a different time period or add new expenses.</p>
+        </div>
+      ) : filteredExpenses.length > 0 ? (
         <div className="mb-6">
           <Histogram expenses={filteredExpenses} title="Top Categories" />
         </div>
-      )}
+      ) : null}
       <div className="expense-report border border-gray-300 rounded-md overflow-hidden bg-gray-50">
         {filteredExpenses.length === 0 ? (
           <p className="text-center text-gray-600 p-6">
-            No expenses for the selected period.
+            {expenses.length === 0 
+              ? "No expenses logged yet. Start adding expenses to see your history here!"
+              : "No expenses for the selected period."
+            }
           </p>
         ) : (
           <ul className="divide-y divide-gray-200">
