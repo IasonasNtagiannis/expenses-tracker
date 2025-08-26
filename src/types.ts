@@ -15,4 +15,6 @@ export interface Category {
 export type Budget = {
   id: string;
   amount: number;
+  type: "monthly" | "category";
+  category?: string;
 };

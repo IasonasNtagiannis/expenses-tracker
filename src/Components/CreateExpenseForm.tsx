@@ -15,7 +15,7 @@ const CreateExpenseForm: React.FC<CreateExpenseFormProps> = ({
   const [amount, setAmount] = useState<number>(0);
   const [date, setDate] = useState("");
   const [category, setCategory] = useState<string>(
-    StandardCategories.values().next().value?.name ?? ""
+    StandardCategories.keys().next().value ?? ""
   );
 
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
@@ -168,11 +168,13 @@ const CreateExpenseForm: React.FC<CreateExpenseFormProps> = ({
             if (categoryError) setCategoryError(null);
           }}
         >
-          {Array.from(StandardCategories.values()).map((category) => (
-            <option key={category.name} value={category.name}>
-              {category.name}
-            </option>
-          ))}
+          {Array.from(StandardCategories.entries()).map(
+            ([key, categoryData]) => (
+              <option key={key} value={key}>
+                {categoryData.name}
+              </option>
+            )
+          )}
         </select>
         {categoryError && (
           <p className="text-red-500 text-xs italic">{categoryError}</p>
